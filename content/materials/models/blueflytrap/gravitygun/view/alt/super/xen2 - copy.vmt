@@ -1,0 +1,14 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models\blueflytrap\gravitygun\view\texture\xen_blue"
+	"$bumpmap" "models\blueflytrap\gravitygun\view\texture\xen_n"
+
+	"$translucent"	"1"
+
+	"$color2"		"[0.1 0.1 0.1]"
+
+	"$phong" "1"
+	"$phongboost"	"0"
+
+	"$phongfresnelranges"	"[0 0 0]"	// dummy
+}
