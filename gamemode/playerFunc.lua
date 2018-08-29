@@ -18,6 +18,8 @@ end
 function GM:PlayerSpawn ( ply )
 		ply:SetArmor( 100 )
 		ply:Give ("weapon_physcannon")
+
+		ply:SetupHands()
 end
 
 function GM:PlayerDeath(ply,inf,att)
