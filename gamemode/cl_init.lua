@@ -1,3 +1,3 @@
 include( "shared.lua" )
-include("custom_scoreboard.lua")
-include("custom_hud.lua")
+include("cl_scoreboard.lua")
+include("cl_hud.lua")

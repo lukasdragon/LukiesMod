@@ -1,6 +1,7 @@
---adds font thats used
-
 function HUD()
+
+
+  
 local client = LocalPlayer()
 
 

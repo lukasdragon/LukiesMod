@@ -1,5 +1,3 @@
-local TEAM_SPEC, TEAM_PLAYER = 0, 1
-
 function GM:PlayerInitialSpawn ( ply )
 	ply:SetModel("models/player/p2_chell.mdl")
 	ply:SetGravity(1)
