@@ -42,6 +42,7 @@ function GM:ScoreboardShow()
     PlayerPanel.Paint = function()
       draw.RoundedBox(0,0,0,PlayerPanel:GetWide(),PlayerPanel:GetTall(),Color(50,50,50,255))
       draw.SimpleText("Player", "DermaDefault", 5, 5, Color(255,255,255))
+      draw.SimpleText("Score", "DermaDefault", PlayerList:GetWide() - 200, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
       draw.SimpleText("Frags", "DermaDefault", PlayerList:GetWide() - 140, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
       draw.SimpleText("Deaths", "DermaDefault", PlayerList:GetWide() - 80, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
       draw.SimpleText("Ping", "DermaDefault", PlayerList:GetWide() - 20, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
@@ -59,6 +60,7 @@ function GM:ScoreboardShow()
         draw.SimpleText(v:Ping(), "DermaDefault", PlayerList:GetWide() - 20, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
         draw.SimpleText(v:Deaths(), "DermaDefault", PlayerList:GetWide() - 80, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
         draw.SimpleText(v:Frags(), "DermaDefault", PlayerList:GetWide() - 140, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
+        draw.SimpleText(v:getPoints(), "DermaDefault", PlayerList:GetWide() - 200, 5, Color(255,255,255), TEXT_ALIGN_RIGHT)
       end
     end
 

@@ -9,11 +9,11 @@
 	{
 		1
 		{
-			"name"		"lm_maxfrags"
-			"text"		"Max Frags"
-			"help"		"The maxiumum number of frags before a map change"
+			"name"		"lm_maxscore"
+			"text"		"Max Score"
+			"help"		"The maxiumum number of points before a map reset"
 			"type"		"Numeric"
-			"default"	"20"
+			"default"	"1000"
 		}	
 	}
 

@@ -22,7 +22,17 @@ end
 
 function GM:PlayerDeath(ply,inf,att)
 	ply:EmitSound("vo/npc/male01/pain07.wav", 100, 100)
-	att:SetFrags(1)
+
+if ( ply == att) then
+		ply:addPoints(-150)
+		PrintMessage( HUD_PRINTTALK, ply:Name() .. " committed suicide." )
+	else
+		ply:addPoints(-50)
+		att:addPoints(100)
+		PrintMessage( HUD_PRINTTALK, ply:Name() .. " was killed by " .. att:Name() .. "." )
+	end
+
+--	att:AddFrags(1)
 end
 
 function GM:GetFallDamage (ply, flFallSpeed)

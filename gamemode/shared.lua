@@ -8,3 +8,5 @@ function GM:Initialize()
 end
 
 util.PrecacheModel("models/player/p2_chell.mdl")
+
+CreateConVar( "lm_maxscore", 1000, FCVAR_REPLICATED, "The maxiumum number of points before a map reset")
