@@ -6,9 +6,20 @@ function endMatch( ply )
         v:StripWeapons()
         v:Freeze( true )
     		v:SendLua( "GAMEMODE:ScoreboardShow()" )
+
+        if (v:GetName() == ply:GetName()) then
+          net.Start("play_Roundvictory")
+          net.Send(v)
+        else
+          net.Start("play_Roundlost")
+          net.Send(v)
+        end
   end
 
-  timer.Create( "cleanupTimer", 5, 1, function()
+  timer.Create( "cleanupTimer", 14, 1, function()
+    net.Start("play_startRound")
+    net.Broadcast(v)
+
     for k, v in pairs(player.GetAll()) do
           v:SendLua( "GAMEMODE:ScoreboardHide()" )
           v:setPoints(0)
