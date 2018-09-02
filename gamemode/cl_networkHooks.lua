@@ -1,11 +1,11 @@
 net.Receive("play_Roundvictory", function()
-	surface.PlaySound( "roundWin.wav" )
+	surface.PlaySound( "sfx/roundwin.wav" )
 end)
 
 net.Receive("play_Roundlost", function()
-	surface.PlaySound("roundLose.wav")
+	surface.PlaySound("sfx/roundlose.wav")
 end)
 
 net.Receive("play_startRound", function()
-	surface.PlaySound("roundBegin.wav")
+	surface.PlaySound("sfx/roundbegin.wav")
 end)

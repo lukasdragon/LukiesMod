@@ -4,6 +4,7 @@
 	"title"		"Lukies Mod"
 	"maps"		"^lm_"
 	"menusystem"	"1"
+	"workshopid"	"1499733670"
 
 	"settings"
 	{
