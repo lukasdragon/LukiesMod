@@ -1,3 +1,8 @@
-util.AddNetworkString("play_roundvictory")
-util.AddNetworkString("play_roundlost")
-util.AddNetworkString("play_startround")
+--Sounds
+util.AddNetworkString("PlayerRoundWon")
+util.AddNetworkString("PlayerRoundLost")
+util.AddNetworkString("PlayerRoundStart")
+--Deaths
+util.AddNetworkString( "PlayerKilled" )
+util.AddNetworkString( "PlayerKilledSelf" )
+util.AddNetworkString( "PlayerKilledByPlayer" )

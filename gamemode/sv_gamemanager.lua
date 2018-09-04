@@ -8,17 +8,16 @@ function endMatch( ply )
     		v:SendLua( "GAMEMODE:ScoreboardShow()" )
 
         if (v:GetName() == ply:GetName()) then
-          net.Start("play_roundvictory")
+          net.Start("PlayerRoundWon")
           net.Send(v)
         else
-          net.Start("play_roundlost")
+          net.Start("PlayerRoundLost")
           net.Send(v)
         end
   end
 
   timer.Create( "cleanupTimer", 14, 1, function()
-    net.Start("play_startround")
-    net.Broadcast(v)
+
 
     for k, v in pairs(player.GetAll()) do
           v:SendLua( "GAMEMODE:ScoreboardHide()" )
@@ -28,5 +27,7 @@ function endMatch( ply )
   				v:Spawn()
   	end
     game.CleanUpMap()
+    net.Start("PlayerRoundStart")
+    net.Broadcast(v)
    end )
 end
