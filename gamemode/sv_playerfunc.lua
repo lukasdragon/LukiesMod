@@ -22,11 +22,41 @@ end
 
 function GM:PlayerDeath(ply,inf,att)
 	ply:EmitSound("vo/npc/male01/pain07.wav", 100, 100)
-	att:SetFrags(1)
+
+	if ( IsValid( att ) && att:GetClass() == "trigger_hurt" ) then att = ply end
+	if ( !IsValid( inf ) && IsValid( att ) ) then inf = att end
+
+	if ( ply == att) then
+		ply:addPoints(-150)
+		MsgAll(ply:Name() .. " committed suicide." )
+		net.Start( "PlayerKilledSelf" )
+			net.WriteEntity( ply )
+		net.Broadcast()
+	return end
+
+	if (att:IsPlayer()) then
+		ply:addPoints(-50)
+		att:addPoints(100)
+		MsgAll(ply:Name() .. " was killed by " .. att:Name() .. "." )
+		net.Start( "PlayerKilledByPlayer" )
+			net.WriteEntity( ply )
+			net.WriteString( inf:GetClass() )
+			net.WriteEntity( att )
+		net.Broadcast()
+	return end
+
+	net.Start( "PlayerKilled" )
+		net.WriteEntity( ply )
+		net.WriteString( inf:GetClass() )
+		net.WriteString( att:GetClass() )
+	net.Broadcast()
+
+	MsgAll( ply:Name() .. " was killed by " .. att:GetClass() .. ".")
+	ply:addPoints(-100)
 end
 
 function GM:GetFallDamage (ply, flFallSpeed)
-	return 0
+	return ( flFallSpeed / 8 )
 end
 
 function GM:CanPlayerSuicide()
