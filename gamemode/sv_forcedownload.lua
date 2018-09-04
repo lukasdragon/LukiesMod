@@ -11,3 +11,4 @@ end
 
 addContentFolder( "sound/sfx" )
 addContentFolder( "materials/ui" )
+addContentFolder( "materials/models" )
