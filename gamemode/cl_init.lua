@@ -1,5 +1,1 @@
-include( "shared.lua" )
-include("cl_networkhooks.lua")
-include("cl_scoreboard.lua")
-include("cl_hud.lua")
-include("player.lua")
+include("shared.lua")

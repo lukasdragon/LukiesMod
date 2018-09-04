@@ -1,57 +1,75 @@
+AddCSLuaFile()
+
+
 GM.Name = "Lukies Mod"
 GM.Author = "AquaDark"
 
 DeriveGamemode( "base" )
-
 function GM:Initialize()
 	self.BaseClass.Initialize( self )
 end
 
 util.PrecacheModel("models/player/p2_chell.mdl")
 
-local function FindPlayerByName(name)
-	for _,v in ipairs(player.GetAll()) do
-		if string.match(v:Name(),name) then return v end
+function recursiveInclusion( scanDirectory, isGamemode )
+	-- Null-coalescing for optional argument
+	isGamemode = isGamemode or false
+
+	local queue = { scanDirectory }
+	-- Loop until queue is cleared
+	while #queue > 0 do
+		-- For each directory in the queue...
+		for _, directory in pairs( queue ) do
+			-- print( "Scanning directory: ", directory )
+
+			local files, directories = file.Find( directory .. "/*", "LUA" )
+
+			-- Include files within this directory
+			for _, fileName in pairs( files ) do
+				if fileName != "shared.lua" and fileName != "init.lua" and fileName != "cl_init.lua" then
+					-- print( "Found: ", fileName )
+
+					-- Create a relative path for inclusion functions
+					-- Also handle pathing case for including gamemode folders
+					local relativePath = directory .. "/" .. fileName
+					if isGamemode then
+						relativePath = string.gsub( directory .. "/" .. fileName, GM.FolderName .. "/gamemode/", "" )
+					end
+
+					-- Include server files
+					if string.match( fileName, "^sv" ) then
+						if SERVER then
+							include( relativePath )
+						end
+					end
+
+					-- Include shared files
+					if string.match( fileName, "^sh" ) then
+						AddCSLuaFile( relativePath )
+						include( relativePath )
+					end
+
+					-- Include client files
+					if string.match( fileName, "^cl" ) then
+						AddCSLuaFile( relativePath )
+
+						if CLIENT then
+							include( relativePath )
+						end
+					end
+				end
+			end
+
+			-- Append directories within this directory to the queue
+			for _, subdirectory in pairs( directories ) do
+				-- print( "Found directory: ", subdirectory )
+				table.insert( queue, directory .. "/" .. subdirectory )
+			end
+
+			-- Remove this directory from the queue
+			table.RemoveByValue( queue, directory )
+		end
 	end
 end
 
-
-CreateConVar( "lm_maxscore", 1000, FCVAR_REPLICATED, "The maxiumum number of points before a map reset")
-
-concommand.Add( "killyourself", function( ply, cmd, args )
-	ply:Kill()
-	print( "You killed yourself!" )
-end )
-
-concommand.Add( "lm_addpoints", function( ply, cmd, args )
-	local nick = args[1]
-	nick = string.lower( nick )
-
-	for k, v in pairs( player.GetAll() ) do
-		if string.find( string.lower( v:Nick() ), nick ) then
-			v:addPoints(args[2])
-			return
-		end
-	end
-
-	MsgN( "Couldn't find player." )
-
-end, function(cmd, stringargs)
-	print( cmd, stringargs )
-		stringargs = string.Trim( stringargs ) -- Remove any spaces before or after.
-		stringargs = string.lower( stringargs )
-		local tbl = {}
-		for k, v in pairs( player.GetAll() ) do
-			local nick = v:Nick()
-			if string.find( string.lower( nick ), stringargs ) then
-				nick = "\"" .. nick .. "\"" -- We put quotes around it in case players have spaces in their names.
-				nick = "lm_addpoints " .. nick -- We also need to put the cmd before for it to work properly.
-
-				table.insert( tbl, nick )
-			end
-		end
-
-		return tbl
-
-
-end,"Adds points to the named player.", FCVAR_CHEAT)
+recursiveInclusion( GM.FolderName .. "/gamemode", true )
