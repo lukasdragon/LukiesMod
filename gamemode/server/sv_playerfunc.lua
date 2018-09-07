@@ -37,7 +37,7 @@ function GM:PlayerDeath(ply,inf,att)
 	if (att:IsPlayer()) then
 		ply:addPoints(-50)
 		att:addPoints(100)
-		MsgAll(ply:Name() .. " was killed by " .. att:Name() .. "." )
+		MsgAll(ply:Name() .. " was killed by " .. att:Name() .. ".\n" )
 		net.Start( "PlayerKilledByPlayer" )
 			net.WriteEntity( ply )
 			net.WriteString( inf:GetClass() )
@@ -51,7 +51,7 @@ function GM:PlayerDeath(ply,inf,att)
 		net.WriteString( att:GetClass() )
 	net.Broadcast()
 
-	MsgAll( ply:Name() .. " was killed by " .. att:GetClass() .. ".")
+	MsgAll( ply:Name() .. " was killed by " .. att:GetClass() .. ".\n")
 	ply:addPoints(-100)
 end
 

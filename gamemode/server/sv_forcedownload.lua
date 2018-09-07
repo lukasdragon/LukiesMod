@@ -9,6 +9,6 @@ function addContentFolder( path )
         end
 end
 
-addContentFolder( "sound/sfx" )
-addContentFolder( "materials/ui" )
-addContentFolder( "materials/models" )
+--addContentFolder( "sound/sfx" )
+--addContentFolder( "materials/ui" )
+--addContentFolder( "materials/models" )
